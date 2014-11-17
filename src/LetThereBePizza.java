@@ -14,6 +14,9 @@ public class LetThereBePizza
 	private		JPanel		panel3;
 	public JMenuBar menuBar;
 	public JMenuItem menuItem;
+	public JMenuItem aboutItem;
+	public JMenuItem exitItem;
+
 	
 	// lihapizzat
 	private JCheckBox QuattroStaggioni = new JCheckBox("Quattro staggioni (kinkku,ananas,aurajuusto) 7€");
@@ -34,17 +37,26 @@ public class LetThereBePizza
 	
 	JTextField textFieldSum = new JTextField(10);
 	JTextField textFieldSum2 = new JTextField(10);
+	JTextField textFieldSum3 = new JTextField("7");
 	JTextArea pizzatSum = new JTextArea();
 	JTextArea pizzatSum2 = new JTextArea();
-
+	
     JTextField nimi = new JTextField();
     JTextField nimi2 = new JTextField();
     JTextField nimi3 = new JTextField();
     JTextField osoite = new JTextField();
     JTextField osoite2 = new JTextField();
+    JTextField osoite3 = new JTextField();
     String[] juomat = { "Cola", "Fanta", "Sprite", "Jaffa", "Pepsi" };
+    String[] mausteet = { "Kebab", "Jauheliha", "Ananas", "Mozzarella", "Tonnikala", "Kananmuna", "Porkkana", "Feta", "Kinkku", "Aurajuusto", "Salami" };
     JComboBox cb = new JComboBox(juomat);
     JComboBox cb2 = new JComboBox(juomat);
+    JComboBox cbj = new JComboBox(juomat);
+    JComboBox cb3 = new JComboBox(mausteet);
+    JComboBox cb4 = new JComboBox(mausteet);
+    JComboBox cb5 = new JComboBox(mausteet);
+    JComboBox cb6 = new JComboBox(mausteet);
+
 	private int sum = 0;	// sum of lihapizzas
 	private int sum2 = 0;	// sum of vegepizzas
     private String quattropizza = "";
@@ -64,13 +76,13 @@ public class LetThereBePizza
 	{
 		// Splash screen
 		
-		setTitle( "Let There Be Pizza" );
+		setTitle("LetThereBePizza");
 		setSize( 800, 600 );
 		setBackground( Color.white );
 		
 		JWindow window = new JWindow();
 		window.getContentPane().add(
-		    new JLabel("", new ImageIcon("images/PizzaMaster.gif"), SwingConstants.CENTER));
+		    new JLabel("", new ImageIcon ("images/PizzaMaster.gif"), SwingConstants.CENTER));
 		window.setSize(800, 600 );
 		window.setBackground(Color.blue);
 		window.setVisible(true);
@@ -97,16 +109,41 @@ public class LetThereBePizza
 	    menuBar.setBorder(new BevelBorder(BevelBorder.RAISED));
 
 	    // Create a menu and add it to the menu bar.
-	    JMenu menu = new JMenu("Menu");
+	    JMenu menu = new JMenu("LetThereBePizza");
 	    menuBar.add(menu);
+	    JMenu help = new JMenu("Apua");
+	    menuBar.add(help);
+
 			    
 	    // A group of JMenuItems
-	    menuItem = new JMenuItem("Help");
-	    menu.add(menuItem);
+	    menuItem = new JMenuItem("Tilausapuri");
+	    help.add(menuItem);
+	    aboutItem = new JMenuItem("Tietoja LetThereBePizzasta");
+	    menu.add(aboutItem);
+	    exitItem = new JMenuItem("Poistu");
+	    menu.add(exitItem);
 	    
 	    menuItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                System.out.println("You have clicked on the new action");
+            public void actionPerformed(ActionEvent e) {
+            	JOptionPane.showMessageDialog((Component)e.getSource(),
+    		    "Näin tilaat tuotteita LetThereBePizzan avulla:" + "\n" +"1. Valitse välilehdistä (Liha Pizza, Vege Pizza, Oma Valinta) haluamasi tuotetyyppi" + "\n" +"2. Syötä yhteystietosi niille tarkoitettuihin kenttiin" +"\n" + "3. Valitse haluamasi tuotteet" + "\n" + "4. Paina Tilaa -paineketta" + "\n" + "5. Varmista tilaus" + "\n" + "6. Nauti!",
+            	"Tilausapuri",
+            	JOptionPane.PLAIN_MESSAGE);
+            }
+        });
+	    
+	    aboutItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	JOptionPane.showMessageDialog((Component)e.getSource(),
+            		    "Copyright © 2014 LetThereBePizza Oy" +"\n" + "Versio 1.0",
+            		    "LetThereBePizza",
+            		    JOptionPane.PLAIN_MESSAGE);
+            }
+        });
+	    
+	    exitItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
             }
         });
 		
@@ -116,19 +153,17 @@ public class LetThereBePizza
 		tabbedPane.addTab( "Vege Pizza", panel2 );
 		tabbedPane.addTab( "Oma Valinta", panel3 );
 		topPanel.add( tabbedPane, BorderLayout.CENTER );
-		
 	}
+	
 	// Page 1
 	public void createPage1()
 	{
 		// Layout
-		
 		panel1 = new JPanel();
 		panel1.setLayout( new GridLayout( 0, 2 ) );
 
 		// Contact info
-		
-		panel1.add( new JLabel( "Nimi:" ) );
+		panel1.add( new JLabel( "Nimi (etunimi, sukunimi):" ) );
 		panel1.add( nimi );
 		nimi.addActionListener(this);
 	    nimi.getText();
@@ -141,8 +176,7 @@ public class LetThereBePizza
 		panel1.add( new JLabel( "Puhelinnumero:" ) );
 		panel1.add( new JTextField() );
 
-	    // Check boxes
-	    
+	    // Check boxes   
 		panel1.add(QuattroStaggioni);
 		panel1.add(KebabPizza);
 		panel1.add(Pollo);
@@ -226,7 +260,7 @@ public class LetThereBePizza
 		
 		// Contact info
 		
-		panel2.add( new JLabel( "Nimi:" ) );
+		panel2.add( new JLabel( "Nimi (etunimi, sukunimi):" ) );
 		panel2.add( nimi2 );
 		nimi2.addActionListener(this);
 	    nimi2.getText();
@@ -265,9 +299,7 @@ public class LetThereBePizza
 		panel2.add(labelSum);
 		textFieldSum2.setEditable(false);
 		panel2.add(textFieldSum2);
-		textFieldSum2.getText();
-		
-		
+		textFieldSum2.getText();	
 		
 		// Tilaa button
 	      JButton TilaaButton2 = new JButton("Tilaa");          
@@ -324,20 +356,94 @@ public class LetThereBePizza
 		panel3 = new JPanel();
 		panel3.setLayout( new GridLayout( 0, 2 ) );
 
-		panel3.add(new JLabel( "Nimi:" ) );
-		panel3.add(new TextArea() );
-		panel3.add(new JLabel( "Osoite:" ) );
-		panel3.add(new TextArea() );
-		panel3.add(new JLabel( "Puhelinnumero:" ) );
-		panel3.add(new TextArea() );
-	    panel3.add(new JCheckBox("Tonnikala"));
-	    panel3.add(new JCheckBox("Kebab"));
-	    panel3.add(new JCheckBox("Kinkku"));
-	    panel3.add(new JCheckBox("Salami"));
-	    panel3.add(new JCheckBox("Pekoni"));
-	    panel3.add(new JCheckBox("Kananmuna"));
-	    panel3.add(new JButton("Tilaa"));
-	    panel3.add(new JButton("Poistu"));
+		panel3.add( new JLabel( "Nimi (etunimi, sukunimi):" ) );
+		panel3.add( nimi3 );
+		nimi3.addActionListener(this);
+	    nimi3.getText();
+
+		panel3.add( new JLabel( "Osoite:" ) );
+		panel3.add( osoite3);
+		osoite3.addActionListener(this);
+		osoite3.getText();
+		
+	    panel3.add( new JLabel( "Puhelinnumero:" ) );
+	    panel3.add(new JTextField() );
+		
+		panel3.add( new JLabel( "Mauste 1" ) );
+		panel3.add( cb3);
+		cb3.addActionListener(this);
+		cb3.getSelectedItem(); 
+		
+		panel3.add( new JLabel( "Mauste 2" ) );
+		panel3.add( cb4);
+		cb4.addActionListener(this);
+		cb4.getSelectedItem(); 
+		
+		panel3.add( new JLabel( "Mauste 3" ) );
+		panel3.add( cb5);
+		cb5.addActionListener(this);
+		cb5.getSelectedItem(); 
+		
+		panel3.add( new JLabel( "Mauste 4" ) );
+		panel3.add( cb6);
+		cb6.addActionListener(this);
+		cb6.getSelectedItem(); 
+		
+		panel3.add( new JLabel( "Juoma (kuuluu hintaan):" ) );
+		panel3.add( cbj);
+		cbj.addActionListener(this);
+		cbj.getSelectedItem(); 
+		
+		// Pizza price sum
+		final JLabel labelSum = new JLabel("Kokonaishinta (€): ");
+		panel3.add(labelSum);
+		textFieldSum3.setEditable(false);
+		panel3.add(textFieldSum3);
+		textFieldSum3.getText();	
+		
+	      JButton TilaaButton3 = new JButton("Tilaa");          
+          TilaaButton3.addActionListener(new ActionListener() {
+          public void actionPerformed(ActionEvent e) {
+        	  
+        	  Object[] options = {"Kyllä",
+              "Ei"};
+              int result = JOptionPane.showOptionDialog(
+            		    (Component)e.getSource(),
+            		    "Arvon " + nimi3.getText() + "\n" + "Haluatteko varmasti tilata seuraavat herkut?"+ "\n" + "Pizza seuraavilla mausteilla:" + " "+ cb3.getSelectedItem() + ", " + cb4.getSelectedItem() + ", " + cb5.getSelectedItem() + ", " + cb6.getSelectedItem() + "\n" + "Juoma: "+ cbj.getSelectedItem() + "\n" + "Osoitteeseen: " + osoite3.getText() + "\n" + "Yhteishintaan: "+ textFieldSum3.getText() + " €",
+            		    "Tilauksen varmistus",
+            		    JOptionPane.YES_NO_OPTION,
+            		    JOptionPane.QUESTION_MESSAGE,
+            		    null,
+              			options,
+              			options[0]);
+              if (result == JOptionPane.YES_OPTION) {
+	        	  JOptionPane.showMessageDialog( (Component)e.getSource(), "Kiitos tilauksestanne! " + nimi3.getText() + "\n" + "Pizzanne toimitetaan osoitteeseen: " + osoite3.getText() ,"Tilausvahvistus", JOptionPane.PLAIN_MESSAGE);
+              } 
+          }          
+       });
+  	    //Peruuta button
+	      JButton PeruutaButton3 = new JButton("Poistu");
+          PeruutaButton3.addActionListener(new ActionListener() {
+	          public void actionPerformed(ActionEvent e) {
+
+	        	  Object[] options = {"Kyllä",
+                    "Ei"};
+	              int result = JOptionPane.showOptionDialog(
+	            		    (Component)e.getSource(),
+	            		    "Haluatteko varmasti poistua pizzantilauksesta?",
+	            		    "Poistu pizzan tilauksesta",
+	            		    JOptionPane.YES_NO_OPTION,
+	            		    JOptionPane.QUESTION_MESSAGE,
+	            		    null,
+	              			options,
+	              			options[0]);
+	              if (result == JOptionPane.YES_OPTION) {
+	                System.exit(0);
+	              } 
+	        }});
+          
+          panel3.add(TilaaButton3);
+          panel3.add(PeruutaButton3);
 
 	}
 
@@ -346,13 +452,13 @@ public class LetThereBePizza
 	{
 		// Create an instance of the test application
 	       //Create and set up the content pane.
-		LetThereBePizza mainFrame	= new LetThereBePizza();
+		LetThereBePizza mainFrame = new LetThereBePizza();
 	    // mainFrame.setJMenubar(mainFrame.createMenuBar());
 	    mainFrame.setJMenuBar(mainFrame.menuBar);
 
 		mainFrame.setVisible( true );
 	}
-	
+		
 	// Pizza calculator
 	
 	@Override
@@ -461,5 +567,7 @@ public class LetThereBePizza
 
 		}
 	}	
+	
+	
 	
 }
